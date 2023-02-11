@@ -28,7 +28,7 @@ class Person {
 let arr:Person[]=[];
 arr.push(new Person("Phong",GT.NAM,"1-1-2001","qqq@gmail.com"));
 arr.push(new Person("P",GT.NU, "1-1-2002","WWW@gmail.com"));
-arr.push(new Person("QQ",GT.OTHER, "1-1-2011","qW@gmail.com",145834699));
+arr.push(new Person("QQ",GT.OTHER, "1-1-2011","qW@gmail.com",+84145834699));
 arr.forEach((item)=>{
     item.hienthi(item)
 })
