@@ -21,6 +21,7 @@ export class TH7_BookManager{
     }
     update(id:string,name:string){
         let indexBookUpdate = this.findBook(id);
+        console.log(indexBookUpdate)
         if(indexBookUpdate != -1){
             this.books[indexBookUpdate].setname(name);
         } else {
