@@ -1,10 +1,13 @@
 class Point {
-    constructor(x, y) {
+    private x:number;
+    private y:number;
+    constructor(x:number, y:number) {
         this.x = x;
         this.y = y;
     }
+
     displayName = "Point";
-    distance(b){
+    distance(b:Point) {
         const dx = this.x - b.x;
         const dy= this.y - b.y;
         return Math.hypot(dx,dy);
