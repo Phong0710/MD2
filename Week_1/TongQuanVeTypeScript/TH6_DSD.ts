@@ -1,7 +1,7 @@
 export class Book {
-    private title: string;
-    private author: string;
-    private alreadyRead: boolean;
+     title: string;
+     author: string;
+     alreadyRead: boolean;
 
     constructor(title: string, author: string, alreadyRead: boolean) {
         this.title = title;
@@ -9,6 +9,12 @@ export class Book {
         this.alreadyRead = alreadyRead;
     }
     showBook(a:Book){
-        console.log(a)
-    }
+        if(a.alreadyRead===true){
+            console.log(`Đã đọc ${a.title}`)
+        } else {
+            console.log(`Chưa đọc ${a.title}`)
+        }
+
+     }
+
 }

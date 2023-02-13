@@ -1,5 +1,8 @@
 import {Book} from "./TH6_DSD";
 
-let arr: Book[] = [];
+let arr:Book[] = [];
 arr.push(new Book("Aliibabab", "40 cuop", true));
 arr.push(new Book("mi nuong", "au co", false));
+ arr.forEach((item)=>{
+     item.showBook(item)
+ })
