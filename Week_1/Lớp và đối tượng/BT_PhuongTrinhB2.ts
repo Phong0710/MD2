@@ -23,13 +23,13 @@ class QuadraticEquation {
     }
 
     getDiscriminant(){
-        return this.getB()*2-4*this.getA()*this.getC()
+        return (this.getB()*2)-4*this.getA()*this.getC()
     }
-    getRoot1(){
-        return (-this.getB()+Math.pow(this.getDiscriminant(),0.5))/2*this.getA();
+    getRoot1():number{
+        return -this.getB()+Math.pow(this.getDiscriminant(),0.5)/(2*this.getA());
     }
-    getRoot2(){
-        return (-this.getB()-Math.pow(this.getDiscriminant(),0.5))/2*this.getA();
+    getRoot2():number{
+        return -this.getB()-Math.pow(this.getDiscriminant(),0.5)/(2*this.getA());
     }
     show(){
         if(this.getDiscriminant()>0){
@@ -43,4 +43,5 @@ class QuadraticEquation {
     }
 }
 
- this.show(new QuadraticEquation(1,3,1))
+let p1=new QuadraticEquation(1,3,1)
+p1.show()
