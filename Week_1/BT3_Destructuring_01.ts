@@ -13,7 +13,8 @@ class Profile {
         return this.fname;
     }
     show(a: Profile): void {
-        console.log(a);
+        console.log(a.fname);
+        console.log(a.lname)
     }
 }
 
