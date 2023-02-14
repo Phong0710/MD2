@@ -9,14 +9,15 @@ class Profile {
         this.bday = bday;
     }
 
-    getFname():string{
+    getFname(){
         return this.fname;
     }
-    show(a: Profile): void {
-        console.log(a.fname);
-        console.log(a.lname)
-    }
+    // show(a: Profile): void {
+    //     console.log(a.fname);
+    //     console.log(a.lname)
+    // }
 }
 
 let profile = new Profile('Code', 'Gym', '1979-01-02')
-profile.show(profile)
+//profile.show(profile.getFname())
+console.log(profile.getFname())
