@@ -5,14 +5,14 @@ enum GT {
 }
 
 class Person {
-    private ten: string;
+    private _ten: string;
     private gt: GT;
     private ngaysinh: string;
     private email: string;
-    private sdt:number;
+    private sdt?:number;
 
     constructor(ten: string, gt: GT, ngaysinh: string, email: string, sdt?: number) {
-        this.ten = ten;
+        this._ten = ten;
         this.gt = gt;
         this.ngaysinh = ngaysinh;
         this.email = email;
@@ -21,6 +21,8 @@ class Person {
         }
 
     }
+
+
     hienthi(person:Person){
         console.log(person)
     }

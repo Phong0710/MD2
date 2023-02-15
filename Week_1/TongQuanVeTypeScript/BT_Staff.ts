@@ -31,6 +31,6 @@ class BT_Staff {
 }
 let arr = new BT_Staff();
 arr.addStaff(new Staff("phong",0,"11-11-2012",'qwe@gmail.com'));
-arr.addStaff(new Staff("phong2",0,"11-11-2012",'qwe@gmail.com',+8407690719));
+arr.addStaff(new Staff("phong2  ",0,"11-11-2012",'qwe@gmail.com',+8407690719));
 arr.addStaff(new Staff("phong",0,"11-11-2012",'qwe@gmail.com',+8407690719))
 console.log(arr)
