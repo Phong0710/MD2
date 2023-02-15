@@ -1,4 +1,4 @@
-import * as tty from "tty";
+// import * as tty from "tty";
 
 class Point2D {
     private _x: number;
