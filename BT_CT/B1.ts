@@ -108,12 +108,23 @@ interface IManager<T> {
 }
 
 class PersonManager implements IManager<Person> {
-    persons: Person[] = [];
 
+    workers: Person[] = [];
+    engineer: Person[] = [];
+    staff: Person[] = [];
+    persons: Person[] = [];
     add(t: Person): void {
+        this.workers.push(t)
+    }
+    addE(t: Person): void {
+        this.engineer.push(t)
+    }
+    addS(t: Person): void {
+        this.staff.push(t)
+    }
+    addP(t: Person): void {
         this.persons.push(t)
     }
-
     findByName(fullName: string): any {
         let newPerson = this.persons.filter((item) => {
             if (fullName === item.fullName) {
@@ -123,9 +134,19 @@ class PersonManager implements IManager<Person> {
         console.table(newPerson)
     }
 
-    showAll(): Person[] {
-        return this.persons;
+    showWorker(): Person[] {
+        return this.workers;
     }
+    showEngineer(): Person[] {
+        return this.engineer;
+    }
+    showStaff(): Person[] {
+        return this.staff;
+    }
+    showAll(): Person[] {
+       return  this.persons
+    }
+
 }
 
 let input = require('readline-sync');
@@ -138,7 +159,7 @@ function showMainMenu() {
             `
         ---- Main Menu ----
         1.Thêm mới
-        2.Hiển thị tất cả
+        2.Hiển thị 
         3.Tìm
         0.Thoát
         `
@@ -149,7 +170,7 @@ function showMainMenu() {
                 addCB()
                 break
             case 2:
-                showAll()
+                showLish()
                 break;
             case 3:
                 findName()
@@ -196,6 +217,7 @@ function addWorker() {
     let level = +input.question('Enter level : ');
     let workers: Workers = new Workers(fullName, age, sex, address, level);
     personManager.add(workers);
+    personManager.addP(workers);
     console.log('Thêm thành công !');
 }
 
@@ -205,9 +227,10 @@ function addEngineer() {
     let sex = input.question('Enter sex');
     let age = +input.question('Enter age: ')
     let address = input.question('Enter address: ')
-    let job = input.question('Enter level : ');
+    let job = input.question('Enter job : ');
     let  engineer: Engineer = new Engineer(fullName, age, sex, address, job);
-    personManager.add(engineer);
+    personManager.addE(engineer);
+    personManager.addP(engineer);
     console.log('Thêm thành công !');
 }
 
@@ -217,14 +240,61 @@ function addStaff() {
     let sex = input.question('Enter sex');
     let age = +input.question('Enter age: ')
     let address = input.question('Enter address: ')
-    let work = input.question('Enter level : ');
+    let work = input.question('Enter work : ');
     let staff: Staff = new Staff(fullName, age, sex, address, work);
-    personManager.add(staff);
+    personManager.addS(staff);
+    personManager.addP(staff);
     console.log('Thêm thành công !');
 }
 
-function showAll() {
-    console.table(personManager.showAll())
+function showLish() {
+    let choice2 = -1;
+    do {
+        console.log(
+            `
+        ---- Main Menu ----
+        1.Hiển thị Workers
+        2.Hiển thị Engineer
+        3.Hiển thị Staff
+        4.Hiển thị all
+        0.Thoát
+        `
+        )
+        choice2 = +input.question('Enter Choice : ')
+        switch (choice2) {
+            case 1:
+                showWorker()
+                break
+            case 2:
+                showEngineer()
+                break
+            case 3:
+                showStaff()
+                break
+            case 4:
+                showAll()
+                break
+        }
+    }
+    while (choice2 !== 0) ;
+
+}
+function showWorker(){
+    console.table(personManager.showWorker())
+}
+function showEngineer(){
+    console.table(personManager.showEngineer())
+}
+function showStaff(){
+    console.table(personManager.showStaff())
+}
+function showAll(){
+    console.log("Worker")
+    console.table(personManager.showWorker())
+    console.log("Engineer")
+    console.table(personManager.showEngineer())
+    console.log("Staff")
+    console.table(personManager.showStaff())
 }
 
 function findName() {
