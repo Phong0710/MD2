@@ -8,8 +8,8 @@ class Cylinder {
     public static getVolume(radius: number, height: number): number {
         let baseArea: number = this.getBaseArea(radius)
         let perimeter: number = this.getPerimater(radius)
-        let volume: number = perimeter * height + 2 * baseArea;
-        return volume;
+        return perimeter * height + 2 * baseArea;
+
     }
 }
 let result = Cylinder.getVolume(5, 10);
