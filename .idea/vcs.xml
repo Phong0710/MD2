@@ -3,7 +3,6 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/C12_Module2" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Week_1/TongQuanVeTypeScript" vcs="Git" />
   </component>
 </project>
