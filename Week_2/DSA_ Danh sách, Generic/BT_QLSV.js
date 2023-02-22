@@ -53,8 +53,29 @@ var LinkerList = /** @class */ (function () {
         this.size = 0;
     }
     LinkerList.prototype.findByName = function (fullName) {
+        var currenNode = this.head;
+        var count = 1;
+        while (currenNode !== null) {
+            if (currenNode.fullName === fullName) {
+                console.log(count++);
+                currenNode.getInfo();
+            }
+            currenNode = currenNode.next;
+        }
     };
-    LinkerList.prototype.listStudentMaxScore = function (score) {
+    LinkerList.prototype.listStudentMaxScore = function () {
+        var arr = [];
+        var currenNode = this.head;
+        while (currenNode !== null) {
+            if (currenNode.score >= this.head.next.score) {
+                arr.push(new StudentInfo(currenNode.fullName, currenNode.score));
+            }
+            currenNode = currenNode.next;
+            if (currenNode === null) {
+                break;
+            }
+        }
+        return arr;
     };
     LinkerList.prototype.showStudentInfos = function () {
         var arr = [];
@@ -65,7 +86,16 @@ var LinkerList = /** @class */ (function () {
         }
         return arr;
     };
-    LinkerList.prototype.totalStudentsFail = function (score) {
+    LinkerList.prototype.totalStudentsFail = function () {
+        var arr = [];
+        var currenNode = this.head;
+        while (currenNode !== null) {
+            if (currenNode.score <= 5) {
+                arr.push(new StudentInfo(currenNode.fullName, currenNode.score));
+            }
+            currenNode = currenNode.next;
+        }
+        return arr;
     };
     LinkerList.prototype.insertFist = function (fullName, score) {
         var node = new NODE(fullName, score);
@@ -90,8 +120,13 @@ var LinkerList = /** @class */ (function () {
     return LinkerList;
 }());
 var node1 = new LinkerList();
-node1.insertFist("nam", 9);
-node1.insertFist("nu", 8);
-node1.insertFist("nammmm", 6);
-node1.insertLast("phong", 7);
+node1.insertFist("nam", 8);
+node1.insertFist("nu", 5);
+node1.insertFist("nu", 9);
+node1.insertFist("nammmm", 4);
+node1.insertLast("phong", 8);
+node1.insertLast("hieu", 10);
 console.table(node1.showStudentInfos());
+//console.table(node1.totalStudentsFail())
+console.table(node1.listStudentMaxScore());
+//node1.findByName("nu")

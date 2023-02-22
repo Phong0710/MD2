@@ -9,6 +9,7 @@ class StudentInfo {
 
     getInfo(): void {
         console.log(`Tên học sinh là : ${this._fullName} có điểm là : ${this._score}`)
+
     }
 
     get fullName(): string {
@@ -40,25 +41,56 @@ class LinkerList {
     }
 
     findByName(fullName: string): void {
+        let currenNode = this.head;
+        let count = 1;
+        while (currenNode !== null) {
+            if (currenNode.fullName === fullName) {
+                console.log(count++)
+                currenNode.getInfo();
+            }
+            currenNode = currenNode.next
+
+        }
     }
 
 
+    listStudentMaxScore(): StudentInfo[] {
+        let arr: Array<StudentInfo> = [];
+        let currenNode = this.head;
+        while (currenNode !== null) {
+            if (currenNode.score >= this.head.next.score) {
+                arr.push(new StudentInfo(currenNode.fullName, currenNode.score));
+            }
+            currenNode = currenNode.next;
+        }
+        return arr;
 
-    listStudentMaxScore(score: number): void {
+
     }
+
 
     showStudentInfos(): StudentInfo[] {
         let arr: Array<StudentInfo> = [];
         let currenNode = this.head;
         while (currenNode !== null) {
-            arr.push(new StudentInfo(currenNode.fullName,currenNode.score));
+            arr.push(new StudentInfo(currenNode.fullName, currenNode.score));
             currenNode = currenNode.next
         }
         return arr;
     }
 
-    totalStudentsFail(score: number): void {
+    totalStudentsFail(): StudentInfo[] {
+        let arr: Array<StudentInfo> = [];
+        let currenNode = this.head;
+        while (currenNode !== null) {
+            if (currenNode.score <= 5) {
+                arr.push(new StudentInfo(currenNode.fullName, currenNode.score));
+            }
+            currenNode = currenNode.next
+        }
+        return arr;
     }
+
 
     insertFist(fullName: string, score: number): void {
         let node = new NODE(fullName, score);
@@ -69,13 +101,14 @@ class LinkerList {
         }
         this.size++
     }
+
     insertLast(fullName: string, score: number): void {
-        if(!this.head){
-            this.insertFist(fullName,score);
-        }else {
-            let node = new NODE(fullName,score);
-            this.tail.next=node;
-            this.tail=node;
+        if (!this.head) {
+            this.insertFist(fullName, score);
+        } else {
+            let node = new NODE(fullName, score);
+            this.tail.next = node;
+            this.tail = node;
 
             this.size++;
         }
@@ -85,9 +118,13 @@ class LinkerList {
 
 
 let node1 = new LinkerList();
-node1.insertFist("nam", 9)
-node1.insertFist("nu", 8)
-node1.insertFist("nammmm", 6)
-node1.insertLast("phong",7)
+node1.insertFist("nam", 8)
+node1.insertFist("nu", 5)
+node1.insertFist("nu", 9)
+node1.insertFist("nammmm", 4)
+node1.insertLast("phong", 8)
+node1.insertLast("hieu", 7)
 console.table(node1.showStudentInfos())
-
+//console.table(node1.totalStudentsFail())
+console.table(node1.listStudentMaxScore())
+//node1.findByName("nu")
