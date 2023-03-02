@@ -1,4 +1,4 @@
-function check(value)
+function check(value:string):any
 {
     if(["apple", "banana", "carrot"].includes(value) === false)
     {
@@ -7,7 +7,7 @@ function check(value)
 }
 try {
     check("cabbage")
-} catch (error){
+} catch (error:any){
     if(error instanceof  RangeError){
         console.log(error.message)
     }

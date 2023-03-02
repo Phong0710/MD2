@@ -1,4 +1,4 @@
-function calculator(number1, number2, operator) {
+function calculator(number1:number, number2:number, operator:string) {
     let result;
     if (operator == '+') {
         result = number1 + number2;
@@ -15,7 +15,7 @@ function calculator(number1, number2, operator) {
 }
 try {
     calculator(3,9,"%")
-} catch (e) {
+} catch (e:any){
     if (e instanceof RangeError){
         console.log(e.message)
     }
