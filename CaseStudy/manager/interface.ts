@@ -1,7 +1,7 @@
  export interface Imanager<T>{
     add(t:T):void;
     show():T[];
-    edit(name:string):void
+    edit(name:string, id:number):void
     remove(id:number):void;
-    find(name:string):void
+    findByNameAndPrintAndReturnNumber(name:string):void
 }

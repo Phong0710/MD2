@@ -4,7 +4,7 @@ import {Album} from "../class/Album";
 
 export class albumManager implements Imanager<Album> {
     albums: Array<Album> = []
-   countAlbum: number = 1
+   countAlbum: number = 1;
 
     constructor() {
     }
@@ -12,19 +12,23 @@ export class albumManager implements Imanager<Album> {
     add(t: Album): void {
         this.albums.push(t)
     }
+    getAlbums(): Album[]{
+        return this.albums
+    }
 
 
-    find(name: string): void {
+    findByNameAndPrintAndReturnNumber(name: string): number {
         let nameAlbum = this.albums.filter((item) => {
                 if (item.nameAlbum === name) {
                     return true
                 }
             }
         )
-        console.table(nameAlbum)
+        console.table(nameAlbum);
+        return nameAlbum.length;
     }
 
-    findById(id: number): any {
+    findById(id: number): number {
         return this.albums.findIndex(function (item) {
             return item.idAlbum == id;
         })
@@ -35,10 +39,12 @@ export class albumManager implements Imanager<Album> {
         return this.albums
     }
 
-    edit(name: string): void {
+    edit(name: string, id:number): void {
+        let index = this.findById(id);
+         this.albums[index].nameAlbum = name
+
 
     }
-
     getIDAlbum(): number {
         return this.countAlbum++;
     }
