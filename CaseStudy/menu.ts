@@ -94,7 +94,6 @@ function editAlbum() {
 }
 
 
-
 function delAlbum() {
     console.table(albumManager1.show())
     console.log('-----Delete album----- ')
@@ -178,13 +177,36 @@ function editSong(album: Album) {
 }
 
 function deleteSong(album: Album) {
-    console.table(album.getSongInAlbum())
+
+    let choice = -1;
+    do {
+        console.table(album.getSongInAlbum())
+        console.log((chalk.gray(`------ Do you want to remove music from the album ${album.nameAlbum} ?------
+    1. Yes
+    2. No
+    `)))
+
+
+        choice = +input.question(" Enter choice : ")
+        switch (choice) {
+            case 1:
+                Remove(album)
+                break;
+            case 2:
+                menuSongInAlbum(album)
+                break;
+        }
+    }
+    while (choice !== 0);
+}
+
+function Remove(album: Album) {
     console.log("-----Delete songs-----")
     let id = +input.question("Enter the ID you want to delete: ")
     songsManage1.remove(id)
     album.remove(id)
     console.log("----You have successfully Deleted !!!!!")
-
+    menuSongInAlbum(album)
 }
 
 function showSongInAlbum(album: Album) {
