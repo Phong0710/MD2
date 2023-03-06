@@ -1,13 +1,17 @@
 import {Imanager} from "./interface";
 import {Album} from "../class/Album";
+import {Song} from "../class/Song";
 
 
-export class albumManager implements Imanager<Album> {
+export class AlbumManage implements Imanager<Album> {
     albums: Array<Album> = []
    countAlbum: number = 1;
 
     constructor() {
     }
+    // addSong(t:Song):void{
+    //     this.albums.push(t)
+    // }
 
     add(t: Album): void {
         this.albums.push(t)
@@ -53,6 +57,7 @@ export class albumManager implements Imanager<Album> {
         let index = this.findById(id);
         this.albums.splice(index, 1)
     }
+
 
 
 }

@@ -1,4 +1,4 @@
-import {albumManager} from "./manager/albumManage";
+import {AlbumManage} from "./manager/albumManage";
 import {Album} from "./class/Album";
 import chalk = require("chalk");
 import {Song} from "./class/Song";
@@ -6,7 +6,9 @@ import {SongManage} from "./manager/songManage";
 
 
 let input = require('readline-sync');
-let albumManager1 = new albumManager()
+let albumManager1 = new AlbumManage()
+let songsManage1 = new SongManage()
+
 
 function showMenu() {
     let choice = -1;
@@ -47,9 +49,9 @@ function showMenu() {
 
 function addAlbum() {
     console.log('----- Add album ------')
-    let id:number = albumManager1.getIDAlbum();
-    let name:string = input.question('Enter Name: ');
-    let status:boolean = input.question('Enter status: ')
+    let id: number = albumManager1.getIDAlbum();
+    let name: string = input.question('Enter Name: ');
+    let status: boolean = input.question('Enter status: ')
     let albums: Album = new Album(id, name, status);
     albumManager1.add(albums)
     console.log(' Congratulate !');
@@ -77,6 +79,7 @@ function showMenuAlbum() {
 }
 
 function editAlbum() {
+    console.table(albumManager1.show())
     console.log("-----Update name Album-----")
     let name = input.question("Input Name: ")
     let aNumber = albumManager1.findByNameAndPrintAndReturnNumber(name)
@@ -85,14 +88,15 @@ function editAlbum() {
     } else {
         let id = +input.question("Choose ID to edit: ")
         let index = albumManager1.findById(id);
-        albumManager1.albums[index].nameAlbum = input.question("Input ID in Name: ");
+        albumManager1.albums[index].nameAlbum = input.question("Enter a new name to edit: ");
         console.table(albumManager1.show())
     }
-
-
 }
 
+
 function delAlbum() {
+    console.table(albumManager1.show())
+
     console.log('-----Delete album----- ')
     let id = input.question(" Input album ID to DELETE: ")
     albumManager1.remove(id);
@@ -104,33 +108,34 @@ function findSongInAllAlbum() {
 
 }
 
-function menuSonginAlbum(name: Album)
-{
-    console.log(name)
+function menuSonginAlbum(album: Album) {
+    console.log(album)
     let choice = -1;
     do {
         console.log(chalk.redBright(`
-    ------ Menu Songs in Album ${name.nameAlbum}------
+    ------ Menu Songs in Album ${album.nameAlbum}------
     1. Add new Song
     2. Edit song title
     3. Delete Song
     4. Show all song
     5. Find the song title in the album
     6. Comeback
+    0. Menu Album
+   
     `))
         choice = +input.question(" Enter choice : ")
         switch (choice) {
             case 1:
-                addSong()
+                addSong(album)
                 break;
             case 2:
-                editSong()
+                editSong(album)
                 break;
             case 3:
-                deleteSong()
+                deleteSong(album)
                 break;
             case 4:
-                showAllSong()
+                showSongInAlbum(album)
                 break
             case 5:
                 findSongInAlbum()
@@ -143,19 +148,47 @@ function menuSonginAlbum(name: Album)
     while (choice !== 0);
 }
 
-function addSong() {
+function addSong(album: Album) {
+    console.log(`--------Add Song------`)
+
+    let id:number = songsManage1.getIDSong()
+    let namesong:string = input.question("Enter name: ")
+    let status: boolean = input.question("Enter status: ")
+    let newSong = new Song(id, namesong, status)
+
+    songsManage1.add(newSong);
+    album.addSong(newSong)
+
+    console.log(` ---- Congratulate !-----`)
 
 }
 
-function editSong() {
+function editSong(album:Album) {
+    console.log("-----Update name Song-----")
+    let name = input.question("Input name : ")
+    let findName = songsManage1.findByNameAndPrintAndReturnNumber(name)
+    if(findName==0){
+        console.log("Not found any songs having that name")
+    } else {
+        let id = +input.question("Choose ID to edit: ")
+        let index =songsManage1.findByIdSongs(id)
+        songsManage1.songs[index].nameSong= input.question("Enter a new name to edit: ")
+        console.table(album.getSongInAlbum())
+    }
+}
+
+function deleteSong(album:Album) {
+    console.table(album.getSongInAlbum())
+    console.log("-----Delete songs-----")
+    let id = +input.question("Enter the ID you want to delete: ")
+    songsManage1.remove(id)
+    album.remove(id)
+    console.log("----You have successfully Deleted !!!!!")
 
 }
 
-function deleteSong() {
-
-}
-
-function showAllSong() {
+function showSongInAlbum(album: Album) {
+    console.log(album.getSongInAlbum())
 
 }
 

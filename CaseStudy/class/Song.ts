@@ -1,7 +1,9 @@
+
 export class Song {
     private _idSong:number
     private _nameSong:string;
     private _statusSong:boolean;
+
 
 
     constructor(idSong: number, nameSong: string, statusSong: boolean) {
@@ -9,6 +11,7 @@ export class Song {
         this._nameSong = nameSong;
         this._statusSong = statusSong;
     }
+
 
     get idSong(): number {
         return this._idSong;
@@ -32,5 +35,8 @@ export class Song {
 
     set statusSong(value: boolean) {
         this._statusSong = value;
+    }
+    getInfoSong(){
+        return `id: ${this.idSong}  - Name: ${this.nameSong} - Status: ${this.statusSong}`
     }
 }
