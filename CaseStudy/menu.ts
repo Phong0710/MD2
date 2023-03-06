@@ -61,7 +61,7 @@ function showMenuAlbum() {
     console.log(`
      —-------- Menu Album —-------
     `)
-    let album = albumManager1.getAlbums();
+    let album = albumManager1.show();
     let menu = ''
     for (let i = 0; i < album.length; i++) {
         menu += `${i + 1}. Album ${album[i].nameAlbum}\n`
@@ -73,7 +73,7 @@ function showMenuAlbum() {
         showMenu();
     } else {
         let albumChoice = album[choice - 1];
-        menuSonginAlbum(albumChoice);
+        menuSongInAlbum(albumChoice);
     }
 
 }
@@ -82,21 +82,21 @@ function editAlbum() {
     console.table(albumManager1.show())
     console.log("-----Update name Album-----")
     let name = input.question("Input Name: ")
-    let aNumber = albumManager1.findByNameAndPrintAndReturnNumber(name)
-    if (aNumber == 0) {
-        console.log("Not found any albums having that name")
+    if (albumManager1.checkName(name) === false) {
+        console.log('Error');
     } else {
         let id = +input.question("Choose ID to edit: ")
         let index = albumManager1.findById(id);
         albumManager1.albums[index].nameAlbum = input.question("Enter a new name to edit: ");
         console.table(albumManager1.show())
     }
+
 }
+
 
 
 function delAlbum() {
     console.table(albumManager1.show())
-
     console.log('-----Delete album----- ')
     let id = input.question(" Input album ID to DELETE: ")
     albumManager1.remove(id);
@@ -105,10 +105,11 @@ function delAlbum() {
 }
 
 function findSongInAllAlbum() {
-
+    let name = input.question("Enter the name of the song you want to find: ")
+    songsManage1.findByNameAndPrintAndReturnNumber(name)
 }
 
-function menuSonginAlbum(album: Album) {
+function menuSongInAlbum(album: Album) {
     console.log(album)
     let choice = -1;
     do {
@@ -138,7 +139,7 @@ function menuSonginAlbum(album: Album) {
                 showSongInAlbum(album)
                 break
             case 5:
-                findSongInAlbum()
+                findSongInAlbum(album)
                 break
             case 6:
                 showMenuAlbum()
@@ -151,10 +152,10 @@ function menuSonginAlbum(album: Album) {
 function addSong(album: Album) {
     console.log(`--------Add Song------`)
 
-    let id:number = songsManage1.getIDSong()
-    let namesong:string = input.question("Enter name: ")
+    let id: number = songsManage1.getIDSong()
+    let songName: string = input.question("Enter name: ")
     let status: boolean = input.question("Enter status: ")
-    let newSong = new Song(id, namesong, status)
+    let newSong = new Song(id, songName, status)
 
     songsManage1.add(newSong);
     album.addSong(newSong)
@@ -163,21 +164,20 @@ function addSong(album: Album) {
 
 }
 
-function editSong(album:Album) {
-    console.log("-----Update name Song-----")
-    let name = input.question("Input name : ")
-    let findName = songsManage1.findByNameAndPrintAndReturnNumber(name)
-    if(findName==0){
-        console.log("Not found any songs having that name")
+function editSong(album: Album) {
+    console.log("-----Update name Album-----")
+    let name = input.question("Input Name: ")
+    if (album.checkName(name) === false) {
+        console.log('Error');
     } else {
         let id = +input.question("Choose ID to edit: ")
-        let index =songsManage1.findByIdSongs(id)
-        songsManage1.songs[index].nameSong= input.question("Enter a new name to edit: ")
+        let index = album.findByIdSongInAlbum(id);
+        album.getSongInAlbum()[index].nameSong = input.question("Enter a new name to edit: ");
         console.table(album.getSongInAlbum())
     }
 }
 
-function deleteSong(album:Album) {
+function deleteSong(album: Album) {
     console.table(album.getSongInAlbum())
     console.log("-----Delete songs-----")
     let id = +input.question("Enter the ID you want to delete: ")
@@ -192,7 +192,10 @@ function showSongInAlbum(album: Album) {
 
 }
 
-function findSongInAlbum() {
+
+function findSongInAlbum(album: Album) {
+    let name = input.question("Enter the name of the song you want to find: ")
+    album.findByNameAndPrintAndReturnNumber(name)
 
 }
 

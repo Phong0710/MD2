@@ -37,6 +37,6 @@ export class Song {
         this._statusSong = value;
     }
     getInfoSong(){
-        return `id: ${this.idSong}  - Name: ${this.nameSong} - Status: ${this.statusSong}`
+        return ` Id: ${this.idSong}  - Name: ${this.nameSong} - Status: ${this.statusSong}`
     }
 }

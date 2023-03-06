@@ -22,13 +22,14 @@ export class SongManage implements Imanager<Song>{
         return this.songs
     }
 
-    findByNameAndPrintAndReturnNumber(name: string): number {
-        let nameSong = this.songs.filter((item)=>{
-            if(item.nameSong===name)
-                return true
-        })
-        console.table(nameSong)
-        return nameSong.length
+    findByNameAndPrintAndReturnNumber(name: string):void{
+        let arrSong: Song[] = this.songs;
+        let result: Song[] = arrSong.filter(element => element.nameSong.includes(name));
+        if (result.length === 0) {
+            console.log('Eror - Khong tim thay bai hat nao co cung ten');
+        } else {
+            console.table(result);
+        }
     }
     findByIdSongs(id:number):number{
         return this.songs.findIndex((item)=>{

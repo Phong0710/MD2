@@ -5,31 +5,37 @@ import {Song} from "../class/Song";
 
 export class AlbumManage implements Imanager<Album> {
     albums: Array<Album> = []
-   countAlbum: number = 1;
+    countAlbum: number = 1;
 
     constructor() {
     }
-    // addSong(t:Song):void{
-    //     this.albums.push(t)
-    // }
+
 
     add(t: Album): void {
         this.albums.push(t)
     }
-    getAlbums(): Album[]{
-        return this.albums
+
+
+
+
+    findByNameAndPrintAndReturnNumber(name: string): void {
+        let arrSong: Album[] = this.albums;
+        let result: Album[] = arrSong.filter(element => element.nameAlbum.includes(name));
+        if (result.length === 0) {
+            return console.log('Eror - Khong tim thay bai hat nao co cung ten');
+        } else {
+            console.table(result);
+        }
     }
 
-
-    findByNameAndPrintAndReturnNumber(name: string): number {
-        let nameAlbum = this.albums.filter((item) => {
-                if (item.nameAlbum === name) {
-                    return true
-                }
-            }
-        )
-        console.table(nameAlbum);
-        return nameAlbum.length;
+    checkName(name: string): boolean {
+        let arrSong: Album[] = this.albums;
+        let result: Album[] = arrSong.filter(element => element.nameAlbum.includes(name));
+        if (result.length === 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     findById(id: number): number {
@@ -43,12 +49,13 @@ export class AlbumManage implements Imanager<Album> {
         return this.albums
     }
 
-    edit(name: string, id:number): void {
+    edit(name: string, id: number): void {
         let index = this.findById(id);
-         this.albums[index].nameAlbum = name
+        this.albums[index].nameAlbum = name
 
 
     }
+
     getIDAlbum(): number {
         return this.countAlbum++;
     }
@@ -59,16 +66,5 @@ export class AlbumManage implements Imanager<Album> {
     }
 
 
-
 }
-// let arr = new albumManager()
-// let album1 = new Album(1,"qqqq",true)
-// let album2 = new Album(2,"wwww",true)
-// let album3 = new Album(3,"eeee",false)
-// arr.add(album1)
-// arr.add(album2)
-// arr.add(album3)
-// console.table(arr.show())
-// arr.find("wwww")
-// arr.remove(2)
-// console.table(arr.show())
+
