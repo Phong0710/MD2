@@ -95,11 +95,34 @@ function editAlbum() {
 
 
 function delAlbum() {
-    console.table(albumManager1.show())
+    let choice = -1;
+    do {
+        console.table(albumManager1.show())
+        console.log((chalk.gray(`------ Do you want to remove album ?------
+    1. Yes
+    2. No
+    `)))
+
+
+        choice = +input.question(" Enter choice : ")
+        switch (choice) {
+            case 1:
+                RemoveAlbum()
+                break;
+            case 2:
+                showMenu()
+                break;
+        }
+    }
+    while (choice !== 0);
+}
+
+function RemoveAlbum() {
     console.log('-----Delete album----- ')
     let id = input.question(" Input album ID to DELETE: ")
     albumManager1.remove(id);
-    console.table(albumManager1.show())
+    console.log("----You have successfully Deleted !!!!!")
+    showMenuAlbum()
 
 }
 
