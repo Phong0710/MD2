@@ -12,17 +12,18 @@ let songsManage1 = new SongManage()
 let checkName = new Regex()
 
 
-function showMenu() {
+export function showMenu() {
     let choice = -1;
     do {
         console.log(chalk.cyan(
             `
             ----------Menu Album---------
             1. Add new album
-            2. Show all album
+            2. Menu album
             3. Edit album name
             4. Delete album
             5. Search song title in all albums
+            6. Show all Album
             0. Exit
             `
         ))
@@ -43,6 +44,9 @@ function showMenu() {
             case 5:
                 findSongInAllAlbum()
                 break;
+            case 6:
+                console.table(albumManager1.show())
+                break
         }
 
     }
@@ -53,8 +57,14 @@ function addAlbum() {
     console.log('----- Add album ------')
     let id: number = albumManager1.getIDAlbum();
     let name: string = input.question('Enter Name: ');
-    let status: boolean = input.question('Enter status: ')
-    let album: Album = new Album(id, name, status);
+    let status: string = input.question('Enter status: ')
+    let newStatus :boolean ;
+    if(status==='false'){
+        newStatus=Boolean("")
+    }else {
+        newStatus=Boolean(status)
+    }
+    let album: Album = new Album(id, name, newStatus);
     if (checkName.checkNameRegex(name)) {
         console.log(' Congratulate !');
         albumManager1.add(album)
@@ -70,7 +80,7 @@ function showMenuAlbum() {
     let album = albumManager1.show();
     let menu = ''
     for (let i = 0; i < album.length; i++) {
-        menu += `${i + 1}. Album ${album[i].nameAlbum}\n`
+        menu += `${i + 1}. Album ${album[i].nameAlbum} . ID:${album[i].idAlbum}\n`
     }
     menu += '0. Exit'
     console.table(menu);
@@ -94,6 +104,7 @@ function editAlbum() {
     } else {
         let id = +input.question("Choose ID to edit: ")
         let index = albumManager1.findById(id);
+        if(index===id){
         {
             let choice = -1;
             {
@@ -107,9 +118,11 @@ function editAlbum() {
                     switch (choice) {
                         case 1:
                             let newName = input.question("Enter a new name to edit: ");
-                            console.log(' Name change successful !');
-                            if (checkName.checkNameRegex(name) && newName !== albumManager1.albums[index].nameAlbum)
+
+                            if (checkName.checkNameRegex(name) && newName !== albumManager1.albums[index].nameAlbum){
+                                console.log(' Name change successful !');
                                 albumManager1.albums[index].nameAlbum = newName;
+                            }
                             else {
                                 console.log(`Album name cannot be the same !!`)
                             }
@@ -124,6 +137,8 @@ function editAlbum() {
             }
             console.table(albumManager1.show())
         }
+        }
+        else console.log("Error by ID")
     }
 }
 
@@ -156,7 +171,7 @@ function RemoveAlbum() {
     let id = input.question(" Input album ID to DELETE: ")
     albumManager1.remove(id);
     console.log("----You have successfully Deleted !!!!!")
-    showMenuAlbum()
+    console.table(albumManager1.show())
 
 }
 
@@ -210,10 +225,12 @@ function addSong(album: Album) {
 
     let id: number = songsManage1.getIDSong()
     let songName: string = input.question("Enter name: ")
-    let status: boolean = input.question("Enter status: ")
-    let newSong = new Song(id, songName, status)
+    let newSong = new Song(id, songName, true)
     if (checkName.checkNameRegex(songName)) {
-        if (album.statusAlbum === true) {
+        console.log(album.statusAlbum)
+        console.log(true)
+        if (album.statusAlbum == true) {
+
             console.log(' Congratulate !');
             songsManage1.add(newSong);
             album.addSong(newSong)

@@ -28,7 +28,7 @@ export class Album {
         let arrSong: Song[] = this.songInAlbum;
         let result: Song[] = arrSong.filter(element => element.nameSong.includes(name));
         if (result.length === 0) {
-           return console.log('Eror - Khong tim thay bai hat nao co cung ten');
+           return console.log('Error - Find');
         } else {
             console.table(result);
         }
