@@ -3,11 +3,13 @@ import {Album} from "./class/Album";
 import chalk = require("chalk");
 import {Song} from "./class/Song";
 import {SongManage} from "./manager/songManage";
+import {Regex} from "./manager/regex";
 
 
 let input = require('readline-sync');
 let albumManager1 = new AlbumManage()
 let songsManage1 = new SongManage()
+let checkName = new Regex()
 
 
 function showMenu() {
@@ -52,9 +54,13 @@ function addAlbum() {
     let id: number = albumManager1.getIDAlbum();
     let name: string = input.question('Enter Name: ');
     let status: boolean = input.question('Enter status: ')
-    let albums: Album = new Album(id, name, status);
-    albumManager1.add(albums)
-    console.log(' Congratulate !');
+    let album: Album = new Album(id, name, status);
+        if(checkName.ckeckNameRegex(name) ){
+             console.log(' Congratulate !');
+             albumManager1.add(album)
+        } else {
+            console.log(`Album name can't be blank !!`)
+        }
 }
 
 function showMenuAlbum() {
@@ -87,8 +93,15 @@ function editAlbum() {
     } else {
         let id = +input.question("Choose ID to edit: ")
         let index = albumManager1.findById(id);
-        albumManager1.albums[index].nameAlbum = input.question("Enter a new name to edit: ");
-        console.table(albumManager1.show())
+        let newName = input.question("Enter a new name to edit: ");
+        if(checkName.ckeckNameRegex(name) && newName !== albumManager1.albums[index].nameAlbum ){
+            console.log(' Name change successful !');
+            albumManager1.albums[index].nameAlbum =newName
+            console.table(albumManager1.show())
+        } else {
+            console.log(`Album name cannot be the same !!`)
+        }
+
     }
 
 }
@@ -178,12 +191,18 @@ function addSong(album: Album) {
     let songName: string = input.question("Enter name: ")
     let status: boolean = input.question("Enter status: ")
     let newSong = new Song(id, songName, status)
+    if(checkName.ckeckNameRegex(songName) ){
+        if (album.statusAlbum===true){
+            console.log(' Congratulate !');
+            songsManage1.add(newSong);
+            album.addSong(newSong)
+        } else {
+            console.log(`The album has a status of false so can't add music!!`)
+        }
 
-    songsManage1.add(newSong);
-    album.addSong(newSong)
-
-    console.log(` ---- Congratulate !-----`)
-
+    } else {
+        console.log(`Song name can't be blank !!`)
+    }
 }
 
 function editSong(album: Album) {
@@ -194,8 +213,15 @@ function editSong(album: Album) {
     } else {
         let id = +input.question("Choose ID to edit: ")
         let index = album.findByIdSongInAlbum(id);
-        album.getSongInAlbum()[index].nameSong = input.question("Enter a new name to edit: ");
-        console.table(album.getSongInAlbum())
+        let newName = input.question("Enter a new name to edit: ");
+        if(checkName.ckeckNameRegex(name) && newName !== album.getSongInAlbum()[index].nameSong ){
+            console.log(' Song name change successful !');
+            album.getSongInAlbum()[index].nameSong = newName
+            console.table(album.getSongInAlbum())
+        } else {
+            console.log(`Song name cannot be the same !!`)
+        }
+
     }
 }
 
