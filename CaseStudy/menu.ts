@@ -55,12 +55,12 @@ function addAlbum() {
     let name: string = input.question('Enter Name: ');
     let status: boolean = input.question('Enter status: ')
     let album: Album = new Album(id, name, status);
-        if(checkName.checkNameRegex(name) ){
-             console.log(' Congratulate !');
-             albumManager1.add(album)
-        } else {
-            console.log(`Album name can't be blank !!`)
-        }
+    if (checkName.checkNameRegex(name)) {
+        console.log(' Congratulate !');
+        albumManager1.add(album)
+    } else {
+        console.log(`Album name can't be blank !!`)
+    }
 }
 
 function showMenuAlbum() {
@@ -86,24 +86,45 @@ function showMenuAlbum() {
 
 function editAlbum() {
     console.table(albumManager1.show())
-    console.log("-----Update name Album-----")
+    console.log("-----Update Album-----")
     let name = input.question("Input Name: ")
+    albumManager1.findByNameAndPrintAndReturnNumber(name)
     if (albumManager1.checkName(name) === false) {
         console.log('Error');
     } else {
         let id = +input.question("Choose ID to edit: ")
         let index = albumManager1.findById(id);
-        let newName = input.question("Enter a new name to edit: ");
-        if(checkName.checkNameRegex(name) && newName !== albumManager1.albums[index].nameAlbum ){
-            console.log(' Name change successful !');
-            albumManager1.albums[index].nameAlbum =newName
+        {
+            let choice = -1;
+            {
+                do {
+                    console.log((chalk.gray(`------ Do you want to edit name or status album ?------
+                             1. Edit name
+                             2. Edit Status
+                             0. Exit
+                              `)))
+                    choice = +input.question(" Enter choice : ")
+                    switch (choice) {
+                        case 1:
+                            let newName = input.question("Enter a new name to edit: ");
+                            console.log(' Name change successful !');
+                            if (checkName.checkNameRegex(name) && newName !== albumManager1.albums[index].nameAlbum)
+                                albumManager1.albums[index].nameAlbum = newName;
+                            else {
+                                console.log(`Album name cannot be the same !!`)
+                            }
+                            break
+                        case 2:
+                            let newStatus = input.question("Enter a new status to edit: ")
+                            console.log(`Status change successful !`)
+                            albumManager1.albums[index].statusAlbum = newStatus;
+                            break
+                    }
+                } while (choice !== 0)
+            }
             console.table(albumManager1.show())
-        } else {
-            console.log(`Album name cannot be the same !!`)
         }
-
     }
-
 }
 
 
@@ -191,8 +212,8 @@ function addSong(album: Album) {
     let songName: string = input.question("Enter name: ")
     let status: boolean = input.question("Enter status: ")
     let newSong = new Song(id, songName, status)
-    if(checkName.checkNameRegex(songName) ){
-        if (album.statusAlbum===true){
+    if (checkName.checkNameRegex(songName)) {
+        if (album.statusAlbum === true) {
             console.log(' Congratulate !');
             songsManage1.add(newSong);
             album.addSong(newSong)
@@ -214,7 +235,7 @@ function editSong(album: Album) {
         let id = +input.question("Choose ID to edit: ")
         let index = album.findByIdSongInAlbum(id);
         let newName = input.question("Enter a new name to edit: ");
-        if(checkName.checkNameRegex(name) && newName !== album.getSongInAlbum()[index].nameSong ){
+        if (checkName.checkNameRegex(name) && newName !== album.getSongInAlbum()[index].nameSong) {
             console.log(' Song name change successful !');
             album.getSongInAlbum()[index].nameSong = newName
             console.table(album.getSongInAlbum())

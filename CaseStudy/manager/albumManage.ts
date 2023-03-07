@@ -1,6 +1,6 @@
 import {Imanager} from "./interface";
 import {Album} from "../class/Album";
-import {Song} from "../class/Song";
+
 
 
 export class AlbumManage implements Imanager<Album> {
@@ -22,7 +22,7 @@ export class AlbumManage implements Imanager<Album> {
         let arrSong: Album[] = this.albums;
         let result: Album[] = arrSong.filter(element => element.nameAlbum.includes(name));
         if (result.length === 0) {
-            return console.log('Eror - Khong tim thay bai hat nao co cung ten');
+            return console.log('Error - Couldn\'t find any songs with the same name !');
         } else {
             console.table(result);
         }
