@@ -10,8 +10,8 @@ function Main() {
     do {
         console.log(`
         -------MENU LOGIN-------
-         1: Login
-         2: Sign In
+         1: Sign In
+         2: Sign Up
          0. Exit
          `);
         choice = +input.question(`Enter number :`);
