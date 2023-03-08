@@ -29,7 +29,7 @@ function Main() {
 
  function Login() {
     console.log(`
-                -------MENU NEW USER-------`);
+                ------- Sign In-------`);
     let account = input.question(`Account :`);
     let checkAccount = new Regex().checkNameRegex(account);
     let pass = input.question(`Password :`);
@@ -48,7 +48,7 @@ function Main() {
 
 function SignIn() {
     console.log(`
-                -------MENU-------`);
+                -------SignIn-------`);
     let account = input.question(`Account :`);
     let checkAccount = new Regex().checkNameRegex(account);
     let pass = input.question(`Password :`);
